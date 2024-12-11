@@ -27,11 +27,12 @@ internal class Program
             goto labError;
 
         //encode/decode
+        var key = args[1];
         var isEncode2 = (bool)isEncode;
-        var result = _Str.EncodeDecodeByKey(isEncode2, args[2], args[1]);
+        var result = _Str.AesEnDecodeByKey(isEncode2, args[2], key);
         Console.WriteLine($"加解密結果: {result}");
         if (isEncode2)
-            Console.WriteLine($"還原結果(驗證用途): {_Str.EncodeDecodeByKey(!isEncode2, result, args[1])}");
+            Console.WriteLine($"還原結果(驗證用途): {_Str.AesEnDecodeByKey(!isEncode2, result, key)}");
         return;
 
     labError:
