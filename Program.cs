@@ -18,7 +18,7 @@ internal class Program
         if (args.Length != 3)
             goto labError;
 
-        //action
+        //get action
         var act = args[0].ToUpper();
         Console.WriteLine($"act={act}");
         bool? isEncode = (act == "-E") ? true :
@@ -29,10 +29,12 @@ internal class Program
         //encode/decode
         var key = args[1];
         var isEncode2 = (bool)isEncode;
-        var result = _Str.AesEnDecodeByKey(isEncode2, args[2], key);
+        var result = isEncode2
+            ? _Str.Encode(args[2], key)
+            : _Str.Decode(args[2], key);
         Console.WriteLine($"加解密結果: {result}");
         if (isEncode2)
-            Console.WriteLine($"還原結果(驗證用途): {_Str.AesEnDecodeByKey(!isEncode2, result, key)}");
+            Console.WriteLine($"還原結果(驗證用途): {_Str.Decode(result, key)}");
         return;
 
     labError:
